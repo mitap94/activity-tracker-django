@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+    server:
+        build: .
+        ports:
+            - "8000:8000"
+        volumes:
+            - ./src:/src
+        command: >
+            sh -c "python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
+        environment:
+            - DB_HOST=db
+            - DB_NAME=postgres
+            - DB_USER=postgres
+            - DB_PASS=postgres
+        depends_on:
+            - db
+    db:
+        image: postgres:12
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
