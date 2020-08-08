@@ -6,9 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 class UserManager(BaseUserManager):
     """Custom user manager"""
     def create_user(self, email, password=None, **extra_fields):
-        """Create and save a new custom user.
-        Email, name, gender and password are obligatory fields.
-        Other fields are passed as extras."""
+        """Create and save a new custom user"""
         if not email:
             raise ValueError('Users must have an email address')
         user = self.model(email=self.normalize_email(email), **extra_fields)
@@ -54,3 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        if self.name == "":
+            return f'{self.email}'
+        return f'{self.name} ({self.email})'

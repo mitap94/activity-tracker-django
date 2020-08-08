@@ -36,4 +36,3 @@ class UserViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retriev
 
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
-

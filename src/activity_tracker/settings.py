@@ -37,6 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    # WEB
+    'accounts',
+
+    # REST
     'rest_framework',
     'rest_framework.authtoken',
     'core',
@@ -58,7 +70,7 @@ ROOT_URLCONF = 'activity_tracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,6 +99,17 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# TODO Write out email confirmations in the console for now
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -106,6 +129,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -127,3 +163,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'core.User'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+# django-allauth specific for custom user model
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_FORMS = {'signup': 'accounts.forms.SignUpForm'}
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.SocialAccountAdapter'
