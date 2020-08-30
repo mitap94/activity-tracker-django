@@ -22,6 +22,13 @@ def food_picture_file_path(instance, filename):
     return os.path.join('uploads/food_picture/', filename)
 
 
+def measurement_picture_file_path(instance, filename):
+    """Generate file path for measurement picture"""
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return os.path.join('uploads/measurement_picture/', filename)
+
 class UserManager(BaseUserManager):
     """Custom user manager"""
     def create_user(self, email, password=None, **extra_fields):
@@ -78,6 +85,36 @@ class User(AbstractBaseUser, PermissionsMixin):
             return f'{self.email}'
         return f'{self.name} ({self.email})'
 
+
+class Measurement(models.Model):
+    """Class for user measurements"""
+    date = models.DateField(default=date.today)
+    weight = models.PositiveSmallIntegerField(default=0)
+    height = models.PositiveSmallIntegerField(default=0)
+    neck = models.PositiveSmallIntegerField(default=0)
+    chest = models.PositiveSmallIntegerField(default=0)
+    biceps = models.PositiveSmallIntegerField(default=0)
+    forearm = models.PositiveSmallIntegerField(default=0)
+    abdomen = models.PositiveSmallIntegerField(default=0)
+    hips  = models.PositiveSmallIntegerField(default=0)
+    thigh = models.PositiveSmallIntegerField(default=0)
+    image = models.ImageField(blank=True, null=True, upload_to=measurement_picture_file_path)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+
+class UserGoal(models.Model):
+    """Class used to hold user goals
+    currently only hosting current and goal weight"""
+    current_weight  = models.PositiveSmallIntegerField(default=0)
+    goal_weight = models.PositiveSmallIntegerField(default=0)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
 
 class BaseFood(models.Model):
     """Base food class to be used for a simple food and recipes"""

@@ -30,4 +30,5 @@ urlpatterns = [
     # REST APIs
     path('api/user/', include('user.urls')),
     path('api/meal/', include('meal.urls')),
+    path('api/measurement/', include('measurement.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

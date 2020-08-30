@@ -36,3 +36,6 @@ admin.site.register(models.Recipe)
 admin.site.register(models.Meal)
 admin.site.register(models.DailyMeal)
 
+# measurement
+admin.site.register(models.UserGoal)
+admin.site.register(models.Measurement)
