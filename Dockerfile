@@ -12,4 +12,7 @@ COPY ./src /src
 RUN mkdir /utils
 COPY ./utils /utils
 
+RUN mkdir -p /vol/web/media
+RUN mkdir -p /vol/web/static
+
 WORKDIR /src

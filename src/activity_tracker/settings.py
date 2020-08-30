@@ -25,7 +25,8 @@ SECRET_KEY = 'cfh=3zfs8#*m=&2ct-qtr67y&@k&!^5%_&x+-1m9&mpr*a4il#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# TODO remove *
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -51,8 +52,11 @@ INSTALLED_APPS = [
     # REST
     'rest_framework',
     'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'core',
     'user',
+    'meal',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +165,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'core.User'
 

@@ -7,8 +7,8 @@ from rest_framework import serializers
 class CreateManageUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'name', 'gender']
-        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
+        fields = ['id', 'email', 'password', 'name', 'gender', 'profile_picture']
+        extra_kwargs = {'id': {'read_only': True}, 'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
         """Create a new user with encrypted password and return it"""
@@ -29,7 +29,7 @@ class CreateManageUserSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['id', 'email', 'name', 'gender', 'last_login', 'is_active', 'groups', 'is_staff', 'is_superuser', 'user_permissions']
+        fields = ['id', 'email', 'name', 'gender', 'profile_picture', 'last_login', 'is_active', 'groups', 'is_staff', 'is_superuser', 'user_permissions']
         extra_kwargs = {'last_login': {'read_only': True}}
 
 

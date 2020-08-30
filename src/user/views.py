@@ -5,6 +5,10 @@ from rest_framework.settings import api_settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
+
 from user.serializers import CreateManageUserSerializer, UserSerializer, AuthTokenSerializer
 
 
@@ -36,3 +40,10 @@ class UserViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retriev
 
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+
+
+class GoogleLogin(SocialLoginView):
+    """Google login endpoint"""
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+    callback_url = 'http://localhost:8000/accounts/google/login/callback/'

@@ -23,6 +23,7 @@ router.register('users', views.UserViewSet)
 urlpatterns = [
     path('create/', views.CreateUserView.as_view(), name='create'),
     path('token/', views.CreateTokenView.as_view(), name='token'),
+    path('google_token/', views.GoogleLogin.as_view(), name='google_token'),
     path('me/', views.ManageUserView.as_view(), name='me'),
     path('', include(router.urls)),
 ]
