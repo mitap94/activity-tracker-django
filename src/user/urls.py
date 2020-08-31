@@ -39,15 +39,15 @@ class DefaultRouterWithSimpleViews(routers.DefaultRouter):
             if issubclass(viewset, viewsets.ViewSetMixin):
                 continue
 
-            # URL regex
-            regex = '{prefix}{trailing_slash}$'.format(
+            # path
+            regex = '{prefix}{trailing_slash}'.format(
                 prefix=prefix,
                 trailing_slash=self.trailing_slash
             )
 
             # The view name has to have suffix "-list" due to specifics
             # of the DefaultRouter implementation.
-            ret.append(url(
+            ret.append(path(
                 regex, viewset.as_view(),
                 name='{0}-list'.format(basename)
             ))
