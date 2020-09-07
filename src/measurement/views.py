@@ -25,7 +25,7 @@ class DefaultViewSet(viewsets.ModelViewSet):
 
 class UserGoalViewSet(DefaultViewSet):
     """Manage user goals in the database"""
-    queryset = Measurement.objects.all()
+    queryset = UserGoal.objects.all()
     serializer_class = serializers.UserGoalSerializer
 
 
