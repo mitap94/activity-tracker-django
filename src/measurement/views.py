@@ -16,7 +16,7 @@ class DefaultViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Return objects for the current authenticated user only"""
         queryset = self.queryset
-        return queryset.filter(user=self.request.user).order_by('-id')
+        return queryset.filter(user=self.request.user).order_by('-date')
 
     def perform_create(self, serializer):
         """Create a new object"""

@@ -15,7 +15,10 @@ class BaseFoodSerializer(serializers.ModelSerializer):
 class FoodAmountSerializer(serializers.ModelSerializer):
     """Serializer for FoodAmount objects"""
 
-    food = BaseFoodSerializer(many=False)
+    food = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=BaseFood.objects.all()
+    )
 
     class Meta:
         model = FoodAmount

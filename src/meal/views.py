@@ -118,7 +118,7 @@ class DailyMealViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Retrieve daily meals for the authenticated user only"""
         queryset = self.queryset
-        return queryset.filter(user=self.request.user).order_by('-id')
+        return queryset.filter(user=self.request.user).order_by('-date')
 
     def get_serializer_class(self):
         """Return appropriate serializer class"""
